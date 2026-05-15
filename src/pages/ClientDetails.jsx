@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Layout from "../components/Layout";
 
-function Dashboard() {
+function ClientDetails() {
   const [plans, setPlans] = useState([]);
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -103,7 +103,7 @@ function Dashboard() {
   return (
     <>
       <Layout>
-        <div className="flex justify-center items-center mb-6">
+        <div className="mb-10">
           <h1 className="text-3xl font-bold text-center">Hello {firstName}</h1>
         </div>
 
@@ -235,4 +235,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default ClientDetails;

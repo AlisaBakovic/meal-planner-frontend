@@ -7,7 +7,8 @@ import {
   deleteMeal,
   updateMeal,
 } from "../services/planService";
-import { addFoodToMeal, getFoods, deleteFood } from "../services/foodService";
+import { addFoodToMeal, getFoods, deleteFood, updateFoodGrams } from "../services/foodService";
+import Layout from "../components/Layout";
 
 function PlanDetails() {
   const { id } = useParams();
@@ -20,6 +21,8 @@ function PlanDetails() {
   const [foodOptions, setFoodOptions] = useState([]);
   const [selectedFoods, setSelectedFoods] = useState({});
   const [grams, setGrams] = useState({});
+  const [foodSearch, setFoodSearch] = useState({})
+  const [openDropdown, setOpenDropdown] = useState({})
 
   useEffect(() => {
     const fetchPlan = async () => {
@@ -135,6 +138,11 @@ function PlanDetails() {
       ...prev,
       [mealId]: "",
     }));
+
+    setFoodSearch((prev) => ({
+      ...prev, 
+      [mealId]: "",
+    }))
   };
 
   const handleDeleteFood = async (foodId) => {
@@ -144,8 +152,31 @@ function PlanDetails() {
     setMeals(updatedMeals);
   };
 
+  const handleUpdateFoodGrams = async (foodId, grams) => {
+    const updatedMeal = await updateFoodGrams(
+      foodId,
+      Number(grams)
+    );
+
+  setMeals((prev) => 
+    prev.map((meal) =>
+      meal.id === updatedMeal.id 
+        ? updatedMeal 
+        : meal)
+  )
+  };
+
+  const filteredFoods = (mealId) => {
+    const search = foodSearch[mealId]?.toLowerCase() || "";
+
+    return foodOptions.filter((food) => 
+      food.name.toLowerCase().includes(search)
+    );
+  };
+
+
   return (
-    <div>
+    <Layout>
       <h1>Plan id: {id}</h1>
       <p>{plan.name}</p>
       <p>{plan.plan_type}</p>
@@ -164,6 +195,7 @@ function PlanDetails() {
       <div className="grid grid-cols-3 gap-4 mt-6">
         {days.map((day) => {
           const mealsForDay = meals.filter((m) => m.day_number === Number(day));
+          
 
           return (
             <div key={day} className="bg-white p-4 rounded-xl shadow">
@@ -214,14 +246,27 @@ function PlanDetails() {
                       </p>
 
                       <div className="mt-2">
-                        {meal.foods.map((food) => (
+                        {meal.foods?.map((food) => (
                           <div key={food.id} className="text-sm">
-                            <p>
-                              {food.food_norm.name} - {food.grams}g
-                            </p>
+                            <div>
+                              <p>{food.food_norm.name}</p>
 
+                              <input
+                                type="number"
+                                defaultValue={food.grams}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") {
+                                    handleUpdateFoodGrams(food.id, e.target.value);
+                                    e.target.blur();
+                                  }
+                              }}
+
+                              className="border px-1 w-15"
+                              />
+                              <span> g</span>
+                            </div>
                             <button
-                              className="text-red-500 text-xs"
+                              className="cursor-pointer text-red-500 text-xs opacity-0 group-hover:opacity-100 transition"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleDeleteFood(food.id);
@@ -242,7 +287,7 @@ function PlanDetails() {
                   )}
 
                   <button
-                    className="text-red-500 opacity-0 group-hover:opacity-100 transition"
+                    className="cursor-pointer text-red-500 opacity-0 group-hover:opacity-100 transition"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDeleteMeal(meal.id);
@@ -250,25 +295,53 @@ function PlanDetails() {
                   >
                     Delete
                   </button>
+                  
+                  <div classNeme="w-full">
+                    <div className="relative">
+                      <input className="border p-1 w-full"
+                      type="text"
+                      placeholder="Search food..."
+                      value={foodSearch[meal.id] || ""}
+                      onChange={(e) => {
+                        setFoodSearch((prev) =>({
+                          ...prev, [meal.id]: e.target.value,
+                      }));
 
-                  <div className="mt-2 flex gap-2">
-                    <select
-                      value={selectedFoods[meal.id] || ""}
-                      onChange={(e) =>
-                        setSelectedFoods((prev) => ({
-                          ...prev,
-                          [meal.id]: e.target.value,
-                        }))
-                      }
-                      className="border p-1"
-                    >
-                      <option value="">Select food</option>
-                      {foodOptions.map((food) => (
-                        <option key={food.id} value={food.id}>
-                          {food.name}
-                        </option>
-                      ))}
-                    </select>
+                      setOpenDropdown((prev) => ({
+                        ...prev, 
+                        [meal.id]: true
+                      }));
+                      }}
+                    
+                      />
+                      {openDropdown[meal.id] &&
+                        foodSearch[meal.id]?.length >= 2 && (
+                        <div className="absolute z-10 w-full border mt-1 bg-white max-h-40 overflow-y-auto rounded shadow">
+                          {filteredFoods(meal.id).map((food) => (
+                            <div className="p-2 hover:bg-gray-100 cursor-pointer"
+                            key={food.id}
+                            onClick={() => {setSelectedFoods((prev) => ({
+                              ...prev,
+                              [meal.id]: food.id
+                            }));
+
+                            setOpenDropdown((prev) => ({
+                              ...prev, 
+                              [meal.id]:false
+                            }));
+
+                            setFoodSearch((prev) => ({
+                              ...prev,
+                              [meal.id]: food.name,
+                            }));
+                          }}
+                            >
+                              {food.name}
+                            </div>
+                          ))}
+                        </div>
+                        )}
+                      </div>
 
                     <input
                       type="number"
@@ -295,7 +368,7 @@ function PlanDetails() {
           );
         })}
       </div>
-    </div>
+    </Layout>
   );
 }
 

@@ -35,17 +35,18 @@ export const deleteFood = async (foodId) => {
   return res.ok;
 };
 
-export const updatedFood = async (foodId) => {
+export const updateFoodGrams = async (foodId, grams) => {
   const res = await fetch(`${API}/foods/${foodId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + getToken(),
     },
-    body: JSON.stringify(foodData),
+    body: JSON.stringify({ grams: Number(grams) }),
   });
+
   if (!res.ok) {
-    return null;
+    throw new Error("Failed to update grams");
   }
-  return await res.json();
+  return res.json();
 };

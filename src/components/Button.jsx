@@ -4,12 +4,12 @@ function Button({ children, onClick, variant = "primary" }) {
       <button
         onClick={onClick}
         style={{ fontFamily: "Open Sans" }}
-        className="relative inline-block
-        px-10 py-2
-        rounded-full
-        text-white text-sm uppercase tracking-[1px]
-        bg-[rgba(137,91,178,0.74)]
-        border
+        className="group flex items-center gap-4 rounded-full 
+        bg-gradient-to-r from-purple-500 to-[rgb(103,30,206)]
+        px-8 py-4 text-lg font-bold tracking-wide text-white
+        shadow-[0_10px_30px_rgba(98,0,255,0.35)]
+        transition-all duration-300
+        hover:scale-105 hover:shadow-[0_15px_40px_rgba(98,0,255,0.5)]
         transition-all duration-300 ease-in-out
         hover:tracking-[3px]
         drop-shadow-lg/30
@@ -38,11 +38,10 @@ function Button({ children, onClick, variant = "primary" }) {
         onClick={onClick}
         style={{ fontFamily: "Open Sans" }}
         className="relative min-w-[180px] text-center
-        px-10 py-2
+        px-10 py-2 px-8 py-4 text-lg font-bold
         rounded-full
-        text-white text-sm uppercase tracking-[1px]
+        text-white px-8 py-4 text-lg font-bold tracking-[1px]
         bg-mauve-50/30
-        border
         transition-all duration-300 ease-in-out
         drop-shadow-lg/30
 
