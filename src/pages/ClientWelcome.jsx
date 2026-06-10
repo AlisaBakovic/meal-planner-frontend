@@ -40,7 +40,7 @@ function ClientWelcome() {
           <div className="shrink-0">
 
             <img
-              src="/picture/Logo.png"
+              src="/picture/MealMapLogo.png"
               alt="Logo"
               className="h-14 sm:h-16 md:h-18 w-auto object-contain"
             />

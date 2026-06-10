@@ -61,7 +61,7 @@ function Layout({ children, mode = "trainer" }) {
             onClick={() => navigate("/")}>
 
             <img
-              src="/picture/Logo.png"
+              src="/picture/MealMapLogo.png"
               alt="Logo"
               className="cursor-pointer h-14 sm:h-16 md:h-20 w-auto object-contain"
             />

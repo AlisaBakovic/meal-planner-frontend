@@ -1,9 +1,9 @@
-const API = "http://127.0.0.1:5000";
+import { BASE_URL } from "../constants";
 
 const getToken = () => localStorage.getItem("token");
 
 export const getFoods = async () => {
-  const res = await fetch(`${API}/foods`, {
+  const res = await fetch(`${BASE_URL}/foods`, {
     headers: {
       Authorization: "Bearer " + getToken(),
     },
@@ -13,7 +13,7 @@ export const getFoods = async () => {
 };
 
 export const addFoodToMeal = async (mealId, foodData) => {
-  const res = await fetch(`${API}/meals/${mealId}/foods`, {
+  const res = await fetch(`${BASE_URL}/meals/${mealId}/foods`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const addFoodToMeal = async (mealId, foodData) => {
 };
 
 export const deleteFood = async (foodId) => {
-  const res = await fetch(`${API}/foods/${foodId}`, {
+  const res = await fetch(`${BASE_URL}/foods/${foodId}`, {
     method: "DELETE",
 
     headers: {
@@ -36,7 +36,7 @@ export const deleteFood = async (foodId) => {
 };
 
 export const updateFoodGrams = async (foodId, grams) => {
-  const res = await fetch(`${API}/foods/${foodId}`, {
+  const res = await fetch(`${BASE_URL}/foods/${foodId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

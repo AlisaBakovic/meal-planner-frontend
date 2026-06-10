@@ -69,7 +69,7 @@ const navigate = useNavigate()
 
         <div className="shrink-0">
           <img
-            src="/picture/Logo.png"
+            src="/picture/MealMapLogo.png"
             alt="Logo"
             onClick={() => {
               window.scrollTo({

@@ -1,10 +1,10 @@
-const API = "http://127.0.0.1:5000";
+import { BASE_URL } from "../constants";
 
 const getToken = () => localStorage.getItem("token");
 
 export const getPlans = async () => {
   console.log("Get token Plan", getToken());
-  const res = await fetch(`${API}/plans`, {
+  const res = await fetch(`${BASE_URL}/plans`, {
     headers: {
       Authorization: "Bearer " + getToken(),
     },
@@ -19,7 +19,7 @@ export const getPlans = async () => {
 };
 
 export const createPlan = async (plan) => {
-  const res = await fetch(`${API}/plans`, {
+  const res = await fetch(`${BASE_URL}/plans`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const createPlan = async (plan) => {
 };
 
 export const deletePlan = async (id) => {
-  const res = await fetch(`${API}/plans/${id}`, {
+  const res = await fetch(`${BASE_URL}/plans/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: "Bearer " + getToken(),
@@ -51,7 +51,7 @@ export const deletePlan = async (id) => {
 };
 
 export const updatePlan = async (id, plan) => {
-  const res = await fetch(`${API}/plans/${id}`, {
+  const res = await fetch(`${BASE_URL}/plans/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export const updatePlan = async (id, plan) => {
 };
 
 export const getPlanById = async (id) => {
-  const res = await fetch(`${API}/plans/${id}`, {
+  const res = await fetch(`${BASE_URL}/plans/${id}`, {
     headers: {
       Authorization: "Bearer " + getToken(),
     },
@@ -82,7 +82,7 @@ export const getPlanById = async (id) => {
 };
 
 export const getMeals = async (planId) => {
-  const res = await fetch(`${API}/plans/${planId}/meals`, {
+  const res = await fetch(`${BASE_URL}/plans/${planId}/meals`, {
     headers: {
       Authorization: "Bearer " + getToken(),
     },
@@ -96,7 +96,7 @@ export const getMeals = async (planId) => {
 };
 
 export const createMeal = async (planId, meal) => {
-  const res = await fetch(`${API}/plans/${planId}/meals`, {
+  const res = await fetch(`${BASE_URL}/plans/${planId}/meals`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export const createMeal = async (planId, meal) => {
 };
 
 export const deleteMeal = async (mealId) => {
-  const res = await fetch(`${API}/meals/${mealId}`, {
+  const res = await fetch(`${BASE_URL}/meals/${mealId}`, {
     method: "DELETE",
     headers: {
       Authorization: "Bearer " + getToken(),
@@ -130,7 +130,7 @@ export const deleteMeal = async (mealId) => {
 };
 
 export const updateMeal = async (mealId, data) => {
-  const res = await fetch(`${API}/meals/${mealId}`, {
+  const res = await fetch(`${BASE_URL}/meals/${mealId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

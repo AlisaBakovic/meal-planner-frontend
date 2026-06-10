@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
+import { BASE_URL } from "../constants";
 
 function Signup() {
 
@@ -16,7 +17,7 @@ function Signup() {
 
   const handleRegister = () => {
 
-    fetch("http://127.0.0.1:5000/register", {
+    fetch(`${BASE_URL}/register`, {
 
       method: "POST",
 

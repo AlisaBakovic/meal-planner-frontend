@@ -30,7 +30,7 @@ function Features() {
         <div className="relative flex items-center justify-between">
 
           <img
-            src="/picture/Logo.png"
+            src="/picture/MealMapLogo.png"
             alt="Logo"
             onClick={() => navigate("/")}
             className="cursor-pointer h-16 object-contain"

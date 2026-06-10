@@ -1,10 +1,10 @@
-const API = "http://127.0.0.1:5000";
+import { BASE_URL } from "../constants";
 
 const getToken = () => localStorage.getItem("token");
 
 export const sendInvite = async (email) => {
 
-    const res = await fetch(`${API}/invites`, {
+    const res = await fetch(`${BASE_URL}/invites`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -18,7 +18,7 @@ export const sendInvite = async (email) => {
 
 export const validateInviteToken = async (token) => {
 
-    const res = await fetch(`${API}/invites/${token}`);
+    const res = await fetch(`${BASE_URL}/invites/${token}`);
 
     if (!res.ok) {
         throw new Error("Invalid invitation");
@@ -27,7 +27,7 @@ export const validateInviteToken = async (token) => {
 };
 
 export const acceptInvite = async (token, firstName, lastName, password) => {
-    const res = await fetch(`${API}/accept-invite`, {
+    const res = await fetch(`${BASE_URL}/accept-invite`, {
         method: "POST",
         headers: {"Content-Type": "application/json",
         },
@@ -37,7 +37,7 @@ export const acceptInvite = async (token, firstName, lastName, password) => {
 };
 
 export const revokeInvitation = async(inviteId) => {
-    const res = await fetch(`${API}/invites/${inviteId}/revoke`, {
+    const res = await fetch(`${BASE_URL}/invites/${inviteId}/revoke`, {
         method: "PATCH",
         headers: {
             Authorization: "Bearer " + getToken(),
@@ -48,7 +48,7 @@ export const revokeInvitation = async(inviteId) => {
 };
 
 export const getInvites = async() => {
-    const res = await fetch(`${API}/invites`, {
+    const res = await fetch(`${BASE_URL}/invites`, {
         method: "GET",
         headers: {
             Authorization: "Bearer " + getToken(),
@@ -59,7 +59,7 @@ export const getInvites = async() => {
 
 export const revokeInvite = async (inviteId) => {
 
-  const res = await fetch(`${API}/invites/${inviteId}/revoke`, {
+  const res = await fetch(`${BASE_URL}invites/${inviteId}/revoke`, {
     method: "PATCH",
     headers: {
       Authorization: "Bearer " + getToken(),
