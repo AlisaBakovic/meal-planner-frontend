@@ -1,33 +1,16 @@
-function Button({ children, onClick, variant = "primary" }) {
+function Button({ children, onClick, variant = "primary", className="" }) {
   if (variant === "primary") {
     return (
       <button
         onClick={onClick}
         style={{ fontFamily: "Open Sans" }}
-        className="group flex items-center gap-4 rounded-full 
-        bg-gradient-to-r from-purple-500 to-[rgb(103,30,206)]
-        px-8 py-4 text-lg font-bold tracking-wide text-white
-        shadow-[0_10px_30px_rgba(98,0,255,0.35)]
-        transition-all duration-300
-        hover:scale-105 hover:shadow-[0_15px_40px_rgba(98,0,255,0.5)]
-        transition-all duration-300 ease-in-out
-        hover:tracking-[3px]
-        drop-shadow-lg/30
-
-        before:content-['']
-        before:absolute before:left-1/2 before:-translate-x-1/2
-        before:top-1 before:w-0 before:h-[1px]
-        before:bg-[rgb(255,255,255)]
-        before:transition-all before:duration-300
-
-        after:content-['']
-        after:absolute after:left-1/2 after:-translate-x-1/2
-        after:bottom-1 after:w-0
-        after:border-b after:border-[rgb(255,255,255)]
-        after:transition-all after:duration-300
-        "
+        className={`group relative overflow-hidden flex items-center justify-center gap-3 rounded-4xl bg-gradient-to-r from-purple-500 to-[rgb(103,30,206)] px-8 py-4 text-base font-semibold tracking-[0.5px] text-white shadow-[0_12px_35px_rgba(98,0,255,0.28)] transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_20px_45px_rgba(98,0,255,0.38)] active:scale-[0.98] cursor-pointer ${className}`}
       >
-        {children}
+
+        <span className="relative z-10">
+          {children}
+        </span>
+
       </button>
     );
   }
@@ -37,35 +20,19 @@ function Button({ children, onClick, variant = "primary" }) {
       <button
         onClick={onClick}
         style={{ fontFamily: "Open Sans" }}
-        className="relative min-w-[180px] text-center
-        px-10 py-2 px-8 py-4 text-lg font-bold
-        rounded-full
-        text-white px-8 py-4 text-lg font-bold tracking-[1px]
-        bg-mauve-50/30
-        transition-all duration-300 ease-in-out
-        drop-shadow-lg/30
-
-        hover:tracking-[3px]
-        hover:scale-x-110
-
-        before:content-['']
-        before:absolute before:left-1/2 before:-translate-x-1/2
-        before:top-1 before:w-0 before:h-[1px]
-        before:bg-[rgb(255,255,255)]
-        before:transition-all before:duration-300
-
-        after:content-['']
-        after:absolute after:left-1/2 after:-translate-x-1/2
-        after:bottom-1 after:w-0
-        after:border-b after:border-[rgb(255,255,255)]
-        after:transition-all after:duration-300
-        "
+        className="group relative overflow-hidden flex items-center justify-center gap-3 rounded-4xl border border-white/40 bg-white/60 backdrop-blur-xl px-8 py-4 text-base font-semibold tracking-[0.5px] text-[#24163b] shadow-[0_12px_35px_rgba(0,0,0,0.05)] transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:bg-white/80 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] active:scale-[0.98] cursor-pointer"
       >
-        {children}
+
+        <span className="relative z-10">
+          {children}
+        </span>
+
       </button>
     );
   }
+
   console.warn("Unknown button variant:", variant);
+
   return null;
 }
 

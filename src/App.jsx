@@ -6,6 +6,13 @@ import Dashboard from "./pages/Dashboard";
 import "./App.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PlanDetails from "./pages/PlanDetails";
+import ClientDetails from "./pages/ClientDetails";
+import AcceptInvite from "./pages/AcceptInvite";
+import ClientWelcome from "./pages/ClientWelcome";
+import ClientDashboard from "./pages/ClientDashboard";
+import ClientPlanDetails from "./pages/ClientPlanDetails"
+import EmailForm from "./pages/EmailForm"
+import Features from "./pages/Features";
 
 function App() {
   return (
@@ -22,6 +29,9 @@ function App() {
           }
         />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/client-welcome" element={<ClientWelcome />} />
+        <Route path="/client-dashboard" element={<ClientDashboard />} />
+        <Route path="/client-plans/:id" element={<ProtectedRoute><ClientPlanDetails /></ProtectedRoute>}></Route>
         <Route
           path="/plans/:id"
           element={
@@ -30,8 +40,24 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route 
+          path="/client/:id"
+          element={
+            <ProtectedRoute>
+              <ClientDetails />
+            </ProtectedRoute>}
+        />
+        <Route 
+          path="/invite/:token"
+          element={<AcceptInvite />}
+        />
+        <Route path="/email-form" element={<EmailForm/>}/>
+        <Route path="/features" element={<Features />} />
       </Routes>
+      
+      
     </BrowserRouter>
+    
   );
 }
 

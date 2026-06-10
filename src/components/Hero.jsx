@@ -4,6 +4,8 @@ import Button from "./Button";
 function Hero() {
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token")
+
   return (
     <section
       className="
@@ -116,6 +118,15 @@ function Hero() {
           nutrition workflow in one modern platform.
         </p>
 
+        {token ? (
+        
+        <div className="flex items-center gap-5 mt-10">
+          <Button onClick={() => navigate("/dashboard")}>
+            Go to dashboard →
+          </Button>
+
+        </div>
+        ) : (
         <div className="flex items-center gap-5 mt-10">
           <Button onClick={() => navigate("/signup")}>Get started</Button>
 
@@ -123,6 +134,7 @@ function Hero() {
             Sign in
           </Button>
         </div>
+        )}
       </div>
     </section>
   );

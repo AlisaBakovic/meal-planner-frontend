@@ -4,8 +4,9 @@ function About({ scrollY }) {
       className="
         relative z-20
         rounded-t-[50px]
-
-        bg-[#f7f5ff]
+        
+        bg-gradient-to-b from-[#f7f5ff] via-[#f7f5ff] via-85% to-[#f7f5ffa9]
+        backdrop-blur-sm
 
         px-6
         py-28
@@ -33,6 +34,8 @@ function About({ scrollY }) {
         id="about"
         className="
           relative z-10
+
+          scroll-mt-40
 
           max-w-7xl
           mx-auto
