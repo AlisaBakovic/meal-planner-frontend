@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import { useSearchParams } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,11 +35,12 @@ function Login() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("first_name", data.first_name);
       localStorage.setItem("role", data.role);
-
-      window.location.href =
-      data.role === "client"
-        ? "/client-dashboard"
-        : "/dashboard";
+      
+      if (data.role === "client") {
+        navigate("/client-dashboard")
+      } else {
+        navigate("/dashboard")
+      }
         
     } catch (err) {
       setError("Invalid credentials!");
