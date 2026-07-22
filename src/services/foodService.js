@@ -50,3 +50,31 @@ export const updateFoodGrams = async (foodId, grams) => {
   }
   return res.json();
 };
+
+export const createFood = async (foodData) => {
+  const res = await fetch(`${BASE_URL}/foods`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getToken(),
+    },
+    body: JSON.stringify(foodData),
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.error);
+  }
+  return data;
+};
+
+export const deleteFoodNorm = async (foodId) => {
+  const res = await fetch(`${BASE_URL}/foods/${foodId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer " + getToken(),
+    },
+  });
+
+  return res.ok;
+};

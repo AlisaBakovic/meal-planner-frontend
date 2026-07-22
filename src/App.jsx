@@ -10,9 +10,13 @@ import ClientDetails from "./pages/ClientDetails";
 import AcceptInvite from "./pages/AcceptInvite";
 import ClientWelcome from "./pages/ClientWelcome";
 import ClientDashboard from "./pages/ClientDashboard";
-import ClientPlanDetails from "./pages/ClientPlanDetails"
-import EmailForm from "./pages/EmailForm"
+import ClientPlanDetails from "./pages/ClientPlanDetails";
+import EmailForm from "./pages/EmailForm";
 import Features from "./pages/Features";
+import FoodList from "./pages/FoodList";
+import Questionnaire from "./pages/Questionnaire";
+import QuestionnaireSubmitted from "./pages/QuestionnaireSubmitted";
+import QuestionnaireExpired from "./pages/QuestionnaireExpired";
 
 function App() {
   return (
@@ -31,7 +35,14 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/client-welcome" element={<ClientWelcome />} />
         <Route path="/client-dashboard" element={<ClientDashboard />} />
-        <Route path="/client-plans/:id" element={<ProtectedRoute><ClientPlanDetails /></ProtectedRoute>}></Route>
+        <Route
+          path="/client-plans/:id"
+          element={
+            <ProtectedRoute>
+              <ClientPlanDetails />
+            </ProtectedRoute>
+          }
+        ></Route>
         <Route
           path="/plans/:id"
           element={
@@ -40,24 +51,23 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route 
+        <Route
           path="/client/:id"
           element={
             <ProtectedRoute>
               <ClientDetails />
-            </ProtectedRoute>}
+            </ProtectedRoute>
+          }
         />
-        <Route 
-          path="/invite/:token"
-          element={<AcceptInvite />}
-        />
-        <Route path="/email-form" element={<EmailForm/>}/>
+        <Route path="/invite/:token" element={<AcceptInvite />} />
+        <Route path="/email-form" element={<EmailForm />} />
         <Route path="/features" element={<Features />} />
+        <Route path="/foods" element={<FoodList />} />
+        <Route path="/questionnaire" element={<Questionnaire />} />
+        <Route path="/submitted" element={<QuestionnaireSubmitted />} />
+        <Route path="/questionnaire-expired" element={<QuestionnaireExpired />} />
       </Routes>
-      
-      
     </BrowserRouter>
-    
   );
 }
 

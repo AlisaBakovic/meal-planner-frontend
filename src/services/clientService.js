@@ -1,11 +1,8 @@
 import { BASE_URL } from "../constants";
 
-
-
 const getToken = () => localStorage.getItem("token");
 
 export const getClients = async () => {
-
   const res = await fetch(`${BASE_URL}/clients`, {
     headers: {
       Authorization: "Bearer " + getToken(),
@@ -15,10 +12,8 @@ export const getClients = async () => {
 };
 
 export const getClientById = async (id) => {
-  
-  const res = await fetch(`${BASE_URL}/clients/${id}`, 
-  {
-    headers:{
+  const res = await fetch(`${BASE_URL}/clients/${id}`, {
+    headers: {
       Authorization: "Bearer " + getToken(),
     },
   });
@@ -28,7 +23,7 @@ export const getClientById = async (id) => {
 export const deactivateClient = async (clientId) => {
   const res = await fetch(`${BASE_URL}/clients/${clientId}/deactivate`, {
     method: "PATCH",
-    headers:{
+    headers: {
       Authorization: "Bearer " + getToken(),
     },
   });
