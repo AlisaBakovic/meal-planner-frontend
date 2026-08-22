@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import Layout from "../components/Layout";
 import { useSearchParams } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
+import { getQuestionnaire } from "../services/questionnaireService";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -35,11 +36,19 @@ function Login() {
       localStorage.setItem("first_name", data.first_name);
       localStorage.setItem("role", data.role);
 
-      if (data.role === "client") {
+
+      if (data.role === "client" ) {
+        const questionnaire = await getQuestionnaire();
+
+        if(!questionnaire || !questionnaire.answers) {
+          navigate("/questionnaire")
+        } else {
         navigate("/client-dashboard");
+        } 
       } else {
         navigate("/dashboard");
       }
+    
     } catch (err) {
       setError("Invalid credentials!");
     } finally {

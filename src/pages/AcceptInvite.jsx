@@ -46,7 +46,7 @@ function AcceptInvite() {
 
     localStorage.removeItem("token");
 
-    navigate("/questionnaire");
+    navigate("/login");
   };
 
   if (!inviteValid) {
