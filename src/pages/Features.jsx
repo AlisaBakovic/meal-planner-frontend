@@ -15,24 +15,24 @@ function Features() {
         muted
         loop
         playsInline
-        className="fixed inset-0 h-full w-full object-cover opacity-20 -z-20"
+        className="fixed inset-0 -z-20 h-full w-full object-cover opacity-20"
       >
         <source src="/video/bg-reverse.mp4" type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/30 to-transparent -z-10"></div>
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/70 via-white/30 to-transparent"></div>
 
-      <div className="fixed top-4 left-0 w-full z-50 px-6">
+      <div className="fixed top-4 left-0 z-50 w-full px-6">
         <div className="relative flex items-center justify-between">
           <img
             src="/picture/MealMapLogo.png"
             alt="Logo"
             onClick={() => navigate("/")}
-            className="cursor-pointer h-16 object-contain"
+            className="h-16 cursor-pointer object-contain"
           />
 
-          <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
-            <div className="flex items-center gap-10 rounded-full border border-white/30 bg-white/20 backdrop-blur-2xl px-8 py-4 shadow-[0_8px_32px_rgba(31,38,135,0.12)]">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 md:block">
+            <div className="flex items-center gap-10 rounded-full border border-white/30 bg-white/20 px-8 py-4 shadow-[0_8px_32px_rgba(31,38,135,0.12)] backdrop-blur-2xl">
               <NavButton onClick={() => navigate("/")}>About</NavButton>
 
               <div className="h-6 w-px bg-[#94a3b8]/40" />
@@ -51,10 +51,10 @@ function Features() {
             <Button onClick={() => navigate("/login")}>Sign in</Button>
           </div>
 
-          <div className="md:hidden relative z-[100]">
+          <div className="relative z-[100] md:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="group relative flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-white/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(31,38,135,0.18)] transition-all duration-300 hover:scale-105 hover:bg-white/20"
+              className="group relative flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-white/15 shadow-[0_8px_32px_rgba(31,38,135,0.18)] backdrop-blur-2xl transition-all duration-150 duration-300 hover:scale-105 hover:bg-white/20 active:scale-95"
             >
               <div className="relative flex h-5 w-6 flex-col justify-between">
                 <span
@@ -81,7 +81,7 @@ function Features() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="fixed right-6 top-24 z-[999] w-72 overflow-hidden rounded-[32px] border border-white/30 bg-white/70 backdrop-blur-2xl p-5 shadow-[0_20px_60px_rgba(31,38,135,0.18)] transition-all duration-300 md:hidden">
+        <div className="fixed top-24 right-6 z-[999] w-72 overflow-hidden rounded-[32px] border border-white/30 bg-white/70 p-5 shadow-[0_20px_60px_rgba(31,38,135,0.18)] backdrop-blur-2xl transition-all duration-300 md:hidden">
           <div className="flex flex-col gap-2">
             <div className="rounded-2xl transition-all hover:bg-[#f4efff]">
               <NavButton onClick={() => navigate("/")}>About</NavButton>
@@ -97,7 +97,7 @@ function Features() {
               <NavButton>How it works</NavButton>
             </div>
 
-            <div className="pt-3 mt-3 border-t border-[#e7dcff]">
+            <div className="mt-3 border-t border-[#e7dcff] pt-3">
               <Button onClick={() => navigate("/login")}>Sign in</Button>
             </div>
           </div>
@@ -105,16 +105,16 @@ function Features() {
       )}
 
       <section className="relative z-10 px-6 pt-44 pb-24">
-        <div className="max-w-5xl mx-auto text-center">
+        <div className="mx-auto max-w-5xl text-center">
           <div
-            className="inline-flex items-center rounded-full border border-white/30 bg-white/30 backdrop-blur-xl px-6 py-3 text-sm uppercase tracking-[0.18em] text-[#7c6f9a]"
+            className="inline-flex items-center rounded-full border border-white/30 bg-white/30 px-6 py-3 text-sm tracking-[0.18em] text-[#7c6f9a] uppercase backdrop-blur-xl"
             style={{ fontFamily: "Open Sans" }}
           >
             Powerful Nutrition Workflow
           </div>
 
           <h1
-            className="mt-8 text-[56px] sm:text-[82px] leading-[0.95] tracking-[-0.06em] font-[800] text-[#1f1637]"
+            className="mt-8 text-[56px] leading-[0.95] font-[800] tracking-[-0.06em] text-[#1f1637] sm:text-[82px]"
             style={{ fontFamily: "Plus Jakarta Sans" }}
           >
             Everything you need
@@ -127,7 +127,7 @@ function Features() {
           </h1>
 
           <p
-            className="mt-8 max-w-3xl mx-auto text-[20px] leading-[1.8] text-[#5f6f66]"
+            className="mx-auto mt-8 max-w-3xl text-[20px] leading-[1.8] text-[#5f6f66]"
             style={{ fontFamily: "Open Sans" }}
           >
             MealMap helps nutrition coaches organize clients, create
@@ -138,9 +138,9 @@ function Features() {
       </section>
 
       <section className="relative z-10 px-6 pb-28">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          <div className="rounded-[36px] border border-white/30 bg-white/40 backdrop-blur-2xl p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)]">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#8b5cf6] to-[#7c3aed] text-white text-2xl font-bold">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+          <div className="rounded-[36px] border border-white/30 bg-white/40 p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)] backdrop-blur-2xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#8b5cf6] to-[#7c3aed] text-2xl font-bold text-white">
               01
             </div>
 
@@ -160,8 +160,8 @@ function Features() {
             </p>
           </div>
 
-          <div className="rounded-[36px] border border-white/30 bg-white/40 backdrop-blur-2xl p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)]">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#ffb84d] to-[#ff8a4c] text-white text-2xl font-bold">
+          <div className="rounded-[36px] border border-white/30 bg-white/40 p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)] backdrop-blur-2xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#ffb84d] to-[#ff8a4c] text-2xl font-bold text-white">
               02
             </div>
 
@@ -181,8 +181,8 @@ function Features() {
             </p>
           </div>
 
-          <div className="rounded-[36px] border border-white/30 bg-white/40 backdrop-blur-2xl p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)]">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] text-white text-2xl font-bold">
+          <div className="rounded-[36px] border border-white/30 bg-white/40 p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)] backdrop-blur-2xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] text-2xl font-bold text-white">
               03
             </div>
 
@@ -202,8 +202,8 @@ function Features() {
             </p>
           </div>
 
-          <div className="rounded-[36px] border border-white/30 bg-white/40 backdrop-blur-2xl p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)]">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#34d399] to-[#10b981] text-white text-2xl font-bold">
+          <div className="rounded-[36px] border border-white/30 bg-white/40 p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)] backdrop-blur-2xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#34d399] to-[#10b981] text-2xl font-bold text-white">
               04
             </div>
 
@@ -223,8 +223,8 @@ function Features() {
             </p>
           </div>
 
-          <div className="rounded-[36px] border border-white/30 bg-white/40 backdrop-blur-2xl p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)]">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white text-2xl font-bold">
+          <div className="rounded-[36px] border border-white/30 bg-white/40 p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)] backdrop-blur-2xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-2xl font-bold text-white">
               05
             </div>
 
@@ -244,8 +244,8 @@ function Features() {
             </p>
           </div>
 
-          <div className="rounded-[36px] border border-white/30 bg-white/40 backdrop-blur-2xl p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)]">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#f97316] to-[#fb7185] text-white text-2xl font-bold">
+          <div className="rounded-[36px] border border-white/30 bg-white/40 p-10 shadow-[0_20px_60px_rgba(31,38,135,0.08)] backdrop-blur-2xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#f97316] to-[#fb7185] text-2xl font-bold text-white">
               06
             </div>
 

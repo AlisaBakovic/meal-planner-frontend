@@ -1,23 +1,16 @@
 import Button from "../Button";
 
-function NavigationButtons({
-  onBack,
-  onNext,
-}) {
+function NavigationButtons({ onBack, onNext }) {
   return (
-    <div className="flex justify-between mt-14">
-
+    <div className="mt-14 flex justify-between">
       <button
         onClick={onBack}
-        className="text-[#8d87a1] hover:text-[#24163b] transition cursor-pointer"
+        className="cursor-pointer text-[#8d87a1] transition hover:text-[#24163b]"
       >
         ← Back
       </button>
 
-      <Button onClick={onNext}>
-        Continue
-      </Button>
-
+      <Button onClick={onNext}>Continue</Button>
     </div>
   );
 }

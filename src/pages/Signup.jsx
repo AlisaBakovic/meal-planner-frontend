@@ -52,25 +52,25 @@ function Signup() {
 
   return (
     <Layout>
-      <div className="flex items-center justify-center min-h-[75vh]">
-        <div className="w-full max-w-xl bg-white/55 backdrop-blur-2xl border border-white/30 rounded-[36px] shadow-[0_8px_32px_rgba(31,38,135,0.12)] p-10">
+      <div className="flex min-h-[75vh] items-center justify-center">
+        <div className="w-full max-w-xl rounded-[36px] border border-white/30 bg-white/55 p-10 shadow-[0_8px_32px_rgba(31,38,135,0.12)] backdrop-blur-2xl">
           <div className="mb-10">
             <p
-              className="text-sm uppercase tracking-[0.18em] text-[#8a7ca8] mb-4"
+              className="mb-4 text-sm tracking-[0.18em] text-[#8a7ca8] uppercase"
               style={{ fontFamily: "'Open Sans'" }}
             >
               CREATE ACCOUNT
             </p>
 
             <h1
-              className="text-5xl leading-[0.95] tracking-[-0.05em] font-[800] text-[#24163b]"
+              className="text-5xl leading-[0.95] font-[800] tracking-[-0.05em] text-[#24163b]"
               style={{ fontFamily: "'Plus Jakarta Sans'" }}
             >
               Join MealMap
             </h1>
 
             <p
-              className="mt-4 text-[#6f6884] leading-relaxed"
+              className="mt-4 leading-relaxed text-[#6f6884]"
               style={{ fontFamily: "'Open Sans'" }}
             >
               Start creating nutrition plans and managing clients in one modern
@@ -81,14 +81,14 @@ function Signup() {
           <div className="space-y-5">
             <div className="grid grid-cols-2 gap-4">
               <input
-                className="w-full rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl px-5 py-4 outline-none text-[#24163b] placeholder:text-[#8d87a1] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/15 transition-all"
+                className="w-full rounded-2xl border border-white/40 bg-white/60 px-5 py-4 text-[#24163b] backdrop-blur-xl transition-all outline-none placeholder:text-[#8d87a1] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/15"
                 placeholder="First name"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
 
               <input
-                className="w-full rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl px-5 py-4 outline-none text-[#24163b] placeholder:text-[#8d87a1] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/15 transition-all"
+                className="w-full rounded-2xl border border-white/40 bg-white/60 px-5 py-4 text-[#24163b] backdrop-blur-xl transition-all outline-none placeholder:text-[#8d87a1] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/15"
                 placeholder="Last name"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
@@ -97,7 +97,7 @@ function Signup() {
 
             <div className="grid grid-cols-2 gap-4">
               <input
-                className="w-full rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl px-5 py-4 outline-none text-[#24163b] placeholder:text-[#8d87a1] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/15 transition-all"
+                className="w-full rounded-2xl border border-white/40 bg-white/60 px-5 py-4 text-[#24163b] backdrop-blur-xl transition-all outline-none placeholder:text-[#8d87a1] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/15"
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -105,7 +105,7 @@ function Signup() {
 
               <input
                 type="password"
-                className="w-full rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl px-5 py-4 outline-none text-[#24163b] placeholder:text-[#8d87a1] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/15 transition-all"
+                className="w-full rounded-2xl border border-white/40 bg-white/60 px-5 py-4 text-[#24163b] backdrop-blur-xl transition-all outline-none placeholder:text-[#8d87a1] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/15"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -114,7 +114,7 @@ function Signup() {
 
             {error && <ErrorMessage>{error}</ErrorMessage>}
 
-            <div className="pt-6 flex justify-center">
+            <div className="flex justify-center pt-6">
               <div className="max-w-[260px]">
                 <Button onClick={handleRegister}>Create account</Button>
               </div>

@@ -11,8 +11,12 @@ export const sendInvite = async (email) => {
     },
     body: JSON.stringify({ email }),
   });
+  
+  const data = await res.json();
 
-  return res.json();
+  console.log("INVITATION LINK:", data.invite_link);
+
+  return data;
 };
 
 export const validateInviteToken = async (token) => {
@@ -49,6 +53,20 @@ export const revokeInvitation = async (inviteId) => {
   return res.json();
 };
 
+export const resendInvitation = async (inviteId) => {
+  const res = await fetch(`${BASE_URL}/invites/${inviteId}/resend`, {
+    method: "PATCH",
+    headers: {
+      Authorization: "Bearer " + getToken(),
+    },
+  });
+  const data = await res.json();
+
+  console.log("INVITATION LINK:", data.invite_link);
+
+  return data;
+};
+
 export const getInvites = async () => {
   const res = await fetch(`${BASE_URL}/invites`, {
     method: "GET",
@@ -56,16 +74,5 @@ export const getInvites = async () => {
       Authorization: "Bearer " + getToken(),
     },
   });
-  return res.json();
-};
-
-export const revokeInvite = async (inviteId) => {
-  const res = await fetch(`${BASE_URL}invites/${inviteId}/revoke`, {
-    method: "PATCH",
-    headers: {
-      Authorization: "Bearer " + getToken(),
-    },
-  });
-
   return res.json();
 };

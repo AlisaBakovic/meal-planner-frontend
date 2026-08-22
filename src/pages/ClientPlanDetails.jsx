@@ -10,6 +10,10 @@ function ClientPlanDetails() {
   const [plan, setPlan] = useState(null);
   const [meals, setMeals] = useState([]);
 
+  const capitalize = (text) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
   useEffect(() => {
     const loadData = async () => {
       const foundPlan = await getPlanById(id);
@@ -26,9 +30,9 @@ function ClientPlanDetails() {
   }
   return (
     <Layout mode="client">
-      <div className="max-w-[1200px] mx-auto">
-        <div className="rounded-[40px] border border-white/30 bg-white/40 backdrop-blur-2xl p-8 md:p-10 shadow-[0_10px_40px_rgba(255,140,80,0.06)]">
-          <p className="text-sm uppercase tracking-[0.18em] text-[#ff8a4c]">
+      <div className="mx-auto max-w-[1200px]">
+        <div className="rounded-[40px] border border-white/30 bg-white/40 p-8 shadow-[0_10px_40px_rgba(255,140,80,0.06)] backdrop-blur-2xl md:p-10">
+          <p className="text-sm tracking-[0.18em] text-[#ff8a4c] uppercase">
             Nutrition Plan
           </p>
 
@@ -39,12 +43,12 @@ function ClientPlanDetails() {
             {plan.name}
           </h1>
 
-          <p className="mt-4 text-[#5f6f66] leading-relaxed">
+          <p className="mt-4 leading-relaxed text-[#5f6f66]">
             Personalized nutrition structure created for your wellness journey.
           </p>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-2">
           {Object.entries(
             meals.reduce((acc, meal) => {
               if (!acc[meal.day_number]) {
@@ -103,14 +107,14 @@ function ClientPlanDetails() {
                 key={day}
                 className="overflow-hidden rounded-[26px] border border-[#f3f4f6] bg-white shadow-[0_6px_24px_rgba(0,0,0,0.03)]"
               >
-                <div className="flex items-center justify-between border-b border-[#fafafa] px-5 py-4 bg-gradient-to-r from-[#fff8f3] to-white">
+                <div className="flex items-center justify-between border-b border-[#fafafa] bg-gradient-to-r from-[#fff8f3] to-white px-5 py-4">
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#ffb84d] to-[#ff8a4c] text-sm font-bold text-white shadow-[0_6px_16px_rgba(255,140,80,0.18)]">
                       {day}
                     </div>
 
                     <div>
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-[#f59e0b]">
+                      <p className="text-[11px] tracking-[0.16em] text-[#f59e0b] uppercase">
                         Nutrition Day
                       </p>
 
@@ -133,7 +137,7 @@ function ClientPlanDetails() {
                   </div>
                 </div>
 
-                <div className="p-4 space-y-3">
+                <div className="space-y-3 p-4">
                   {dayMeals.map((meal) => (
                     <div
                       key={meal.id}
@@ -141,7 +145,7 @@ function ClientPlanDetails() {
                     >
                       <div className="flex items-center justify-between gap-3">
                         <div>
-                          <p className="text-[11px] uppercase tracking-[0.16em] text-[#9ca3af]">
+                          <p className="text-[11px] tracking-[0.16em] text-[#9ca3af] uppercase">
                             Meal
                           </p>
 
@@ -156,13 +160,13 @@ function ClientPlanDetails() {
                           meal.foods.map((food) => (
                             <div
                               key={food.id}
-                              className="flex items-center justify-between rounded-xl bg-white border border-[#fafafa] px-4 py-3"
+                              className="flex items-center justify-between rounded-xl border border-[#fafafa] bg-white px-4 py-3"
                             >
                               <div className="flex items-center gap-3">
                                 <div className="h-2 w-2 rounded-full bg-[#ffb84d]"></div>
 
                                 <p className="text-sm font-medium text-[#1f2937]">
-                                  {food.food_norm?.name}
+                                  {capitalize(food.food_norm?.name)}
                                 </p>
                               </div>
 

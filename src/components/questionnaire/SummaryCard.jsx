@@ -1,19 +1,12 @@
-function SummaryCard ({
-    title,
-    children
-}) {
-    return (
-    <div className="rounded-3xl bg-white border border-[#ece8ff] p-7 shadow-sm">
-
-        <h3 className="mb-4 text-sm uppercase tracking-[0.18em] font-semibold text-[#5a536e]">
+function SummaryCard({ title, children }) {
+  return (
+    <div className="mb-3 rounded-3xl border border-[#ece8ff] bg-white p-7 shadow-sm">
+      <h3 className="mb-4 text-sm font-semibold tracking-[0.18em] text-[#5a536e] uppercase">
         {title}
-        </h3>
-    
-        <div className="space-y-2">
-            {children}
-        </div>
+      </h3>
+
+      <div className="space-y-2">{children}</div>
     </div>
-    );
-    
+  );
 }
-export default SummaryCard
+export default SummaryCard;

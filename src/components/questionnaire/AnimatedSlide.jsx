@@ -12,4 +12,4 @@ function AnimatedSlide({ children }) {
     </motion.div>
   );
 }
-export default AnimatedSlide
+export default AnimatedSlide;

@@ -6,7 +6,11 @@ function NavButton({ children, onClick }) {
     <button
       onClick={onClick}
       style={{ fontFamily: "Open Sans" }}
-      className={` cursor-pointer flex items-center justify-center whitespace-nowrap text-[15px] font-[400] tracking-[0.12em] uppercase transition-all duration-300 ${isClient ? "text-[#365314] hover:text-[#ff8a4c]" : "text-[#2d2342] hover:text-white"}`}
+      className={`flex cursor-pointer items-center justify-center text-[15px] font-[400] tracking-[0.12em] whitespace-nowrap uppercase transition-all duration-200 hover:-translate-y-[1px] ${
+        isClient
+          ? "text-[#365314] hover:text-[#ff8a4c]"
+          : "text-[#2d2342] hover:text-[#8b5cf6]"
+      }`}
     >
       {children}
     </button>

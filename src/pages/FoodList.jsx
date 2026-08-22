@@ -13,6 +13,10 @@ function FoodList() {
   const [expandedDefaultList, setExpandedDeafaultList] = useState(true);
   const [expandedMyFoodList, setExpandedMyFoodList] = useState(true);
 
+  const capitalize = (text) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
   const loadFoods = async () => {
     setLoading(true);
 
@@ -48,9 +52,9 @@ function FoodList() {
 
   return (
     <Layout>
-      <div className="max-w-[1200px] mx-auto">
-        <div className="text-center mb-10">
-          <p className="text-sm uppercase tracking-[0.18em] text-[#9b6cff] mb-3">
+      <div className="mx-auto max-w-[1200px]">
+        <div className="mb-10 text-center">
+          <p className="mb-3 text-sm tracking-[0.18em] text-[#9b6cff] uppercase">
             Nutrition Database
           </p>
 
@@ -61,18 +65,18 @@ function FoodList() {
             Food List
           </h1>
 
-          <p className="text-[#8d87a1] mt-3">
+          <p className="mt-3 text-[#8d87a1]">
             Manage all available foods and create custom items.
           </p>
         </div>
 
-        <div className="flex flex-col items-center gap-5 mb-12">
+        <div className="mb-12 flex flex-col items-center gap-5">
           <input
             type="text"
             placeholder="Search food..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-full border border-white/40 bg-white/60 backdrop-blur-xl px-5 py-4 outline-none text-[#24163b] placeholder:text-[#8d87a1] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/15 transition-all"
+            className="w-full rounded-full border border-white/40 bg-white/60 px-5 py-4 text-[#24163b] backdrop-blur-xl transition-all outline-none placeholder:text-[#8d87a1] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/15"
           />
 
           <Button
@@ -84,16 +88,15 @@ function FoodList() {
           </Button>
         </div>
 
-        <div className="mb-6 flex justify-between items-center"></div>
+        <div className="mb-6 flex items-center justify-between"></div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-
+        <div className="grid grid-cols-1 gap-8 xl:grid-cols-2">
           <div>
             {defaultFoods.length > 0 && (
               <div>
                 <div
                   onClick={() => setExpandedDeafaultList(!expandedDefaultList)}
-                  className="flex items-center justify-between mb-4 cursor-pointer bg-white/60 rounded-2xl px-5 py-4 border border-white/40"
+                  className="mb-4 flex cursor-pointer items-center justify-between rounded-2xl border border-white/40 bg-white/60 px-5 py-4"
                 >
                   <div className="flex items-center gap-3">
                     <h2
@@ -103,7 +106,7 @@ function FoodList() {
                       Default Foods
                     </h2>
 
-                    <div className="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold">
+                    <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600">
                       {defaultFoods.length}
                     </div>
                   </div>
@@ -117,7 +120,7 @@ function FoodList() {
                     {defaultFoods.map((food) => (
                       <div
                         key={food.id}
-                        className="bg-white/70 backdrop-blur-xl border border-white/40 rounded-2xl overflow-hidden"
+                        className="overflow-hidden rounded-2xl border border-white/40 bg-white/70 backdrop-blur-xl"
                       >
                         <button
                           onClick={() =>
@@ -125,25 +128,25 @@ function FoodList() {
                               expandedFood === food.id ? null : food.id,
                             )
                           }
-                          className="w-full flex items-center justify-between px-5 py-4 cursor-pointer"
+                          className="flex w-full cursor-pointer items-center justify-between px-5 py-4"
                         >
                           <div className="flex items-center gap-3">
                             <h3 className="font-semibold text-[#24163b]">
-                              {food.name}
+                              {capitalize(food.name)}
                             </h3>
 
-                            <span className="px-2 py-1 rounded-full bg-slate-100 text-slate-600 text-xs">
+                            <span className="rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-600">
                               Default
                             </span>
                           </div>
 
-                          <span className="text-[#8b5cf6] text-xl">
+                          <span className="text-xl text-[#8b5cf6]">
                             {expandedFood === food.id ? "−" : "+"}
                           </span>
                         </button>
 
                         {expandedFood === food.id && (
-                          <div className="border-t border-white/30 px-5 py-4 bg-white/40">
+                          <div className="border-t border-white/30 bg-white/40 px-5 py-4">
                             <div className="grid grid-cols-2 gap-4">
                               <div>
                                 <p className="text-xs text-[#8d87a1] uppercase">
@@ -191,16 +194,13 @@ function FoodList() {
             )}
           </div>
 
-          
-
           <div>
-            
             {customFoods.length > 0 && (
               <div>
-                
-                <div 
-                onClick={() => setExpandedMyFoodList(!expandedMyFoodList)}
-                className="flex items-center justify-between mb-4 cursor-pointer bg-white/60 rounded-2xl px-5 py-4 border border-white/40">
+                <div
+                  onClick={() => setExpandedMyFoodList(!expandedMyFoodList)}
+                  className="mb-4 flex cursor-pointer items-center justify-between rounded-2xl border border-white/40 bg-white/60 px-5 py-4"
+                >
                   <div className="flex items-center gap-3">
                     <h2
                       className="text-2xl font-semibold text-[#24163b]"
@@ -209,7 +209,7 @@ function FoodList() {
                       My Foods
                     </h2>
 
-                    <div className="px-4 py-2  rounded-full bg-slate-100 text-slate-600 text-sm font-semibold">
+                    <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600">
                       {customFoods.length}
                     </div>
                   </div>
@@ -217,93 +217,91 @@ function FoodList() {
                     {expandedMyFoodList ? "-" : "+"}
                   </span>
                 </div>
-                
 
+                {expandedMyFoodList && (
+                  <div className="space-y-3">
+                    {customFoods.map((food) => (
+                      <div
+                        key={food.id}
+                        className="overflow-hidden rounded-2xl border border-white/40 bg-white/70 backdrop-blur-xl"
+                      >
+                        <div className="flex items-center justify-between px-5 py-4">
+                          <button
+                            onClick={() =>
+                              setExpandedFood(
+                                expandedFood === food.id ? null : food.id,
+                              )
+                            }
+                            className="flex flex-1 cursor-pointer items-center justify-between transition-all duration-150 active:scale-95"
+                          >
+                            <div className="flex items-center gap-3">
+                              <h3 className="font-semibold text-[#24163b]">
+                                {capitalize(food.name)}
+                              </h3>
 
-              {expandedMyFoodList && (
-                <div className="space-y-3">
-                  {customFoods.map((food) => (
-                    <div
-                      key={food.id}
-                      className="bg-white/70 backdrop-blur-xl border border-white/40 rounded-2xl overflow-hidden"
-                    >
-                      <div className="flex items-center justify-between px-5 py-4">
-                        <button
-                          onClick={() =>
-                            setExpandedFood(
-                              expandedFood === food.id ? null : food.id,
-                            )
-                          }
-                          className="flex items-center justify-between flex-1 cursor-pointer"
-                        >
-                          <div className="flex items-center gap-3">
-                            <h3 className="font-semibold text-[#24163b]">
-                              {food.name}
-                            </h3>
+                              <span className="rounded-full bg-violet-100 px-2 py-1 text-xs text-violet-700">
+                                Custom
+                              </span>
+                            </div>
 
-                            <span className="px-2 py-1 rounded-full bg-violet-100 text-violet-700 text-xs">
-                              Custom
+                            <span className="mr-4 text-xl text-[#8b5cf6]">
+                              {expandedFood === food.id ? "−" : "+"}
                             </span>
-                          </div>
+                          </button>
 
-                          <span className="text-[#8b5cf6] text-xl mr-4">
-                            {expandedFood === food.id ? "−" : "+"}
-                          </span>
-                        </button>
-
-                        <button
-                          onClick={() => handleDeleteFood(food.id)}
-                          className="text-red-500 text-sm font-medium hover:text-red-600"
-                        >
-                          Delete
-                        </button>
-                      </div>
-
-                      {expandedFood === food.id && (
-                        <div className="border-t border-white/30 px-5 py-4 bg-white/40">
-                          <div className="grid grid-cols-2 gap-4">
-                            <div>
-                              <p className="text-xs text-[#8d87a1] uppercase">
-                                Calories
-                              </p>
-                              <p className="font-semibold">
-                                {Math.round(food.calories_per_g * 100)}
-                              </p>
-                            </div>
-
-                            <div>
-                              <p className="text-xs text-[#8d87a1] uppercase">
-                                Protein
-                              </p>
-                              <p className="font-semibold">
-                                {Math.round(food.protein_per_g * 100)}
-                              </p>
-                            </div>
-
-                            <div>
-                              <p className="text-xs text-[#8d87a1] uppercase">
-                                Carbs
-                              </p>
-                              <p className="font-semibold">
-                                {Math.round(food.carbs_per_g * 100)}
-                              </p>
-                            </div>
-
-                            <div>
-                              <p className="text-xs text-[#8d87a1] uppercase">
-                                Fat
-                              </p>
-                              <p className="font-semibold">
-                                {Math.round(food.fat_per_g * 100)}
-                              </p>
-                            </div>
-                          </div>
+                          <button
+                            onClick={() => handleDeleteFood(food.id)}
+                            className="text-sm font-medium text-red-500 transition-all duration-150 hover:text-red-600 active:scale-95"
+                          >
+                            Delete
+                          </button>
                         </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
+
+                        {expandedFood === food.id && (
+                          <div className="border-t border-white/30 bg-white/40 px-5 py-4">
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <p className="text-xs text-[#8d87a1] uppercase">
+                                  Calories
+                                </p>
+                                <p className="font-semibold">
+                                  {Math.round(food.calories_per_g * 100)}
+                                </p>
+                              </div>
+
+                              <div>
+                                <p className="text-xs text-[#8d87a1] uppercase">
+                                  Protein
+                                </p>
+                                <p className="font-semibold">
+                                  {Math.round(food.protein_per_g * 100)}
+                                </p>
+                              </div>
+
+                              <div>
+                                <p className="text-xs text-[#8d87a1] uppercase">
+                                  Carbs
+                                </p>
+                                <p className="font-semibold">
+                                  {Math.round(food.carbs_per_g * 100)}
+                                </p>
+                              </div>
+
+                              <div>
+                                <p className="text-xs text-[#8d87a1] uppercase">
+                                  Fat
+                                </p>
+                                <p className="font-semibold">
+                                  {Math.round(food.fat_per_g * 100)}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>

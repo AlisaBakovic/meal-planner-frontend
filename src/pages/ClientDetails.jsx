@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   getPlans,
   createPlan,
@@ -11,11 +11,12 @@ import Button from "../components/Button";
 import Layout from "../components/Layout";
 import LoadingScreen from "../components/LoadingScreen";
 import { getClientQuestionnaire } from "../services/questionnaireService";
+import Toast from "../components/Toast";
 
 function ClientDetails() {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [questionnaire, setQuestionnaire] = useState(null)
+  const [questionnaire, setQuestionnaire] = useState(null);
 
   const [name, setName] = useState("");
   const [planType, setPlanType] = useState("");
@@ -23,7 +24,16 @@ function ClientDetails() {
   const [selectedPlanId, setSelectedPlanId] = useState(null);
   const [client, setClient] = useState(null);
 
+  const [dailyCalories, setDailyCalories] = useState("");
+  const [dailyProtein, setDailyProtein] = useState("");
+  const [dailyCarbs, setDailyCarbs] = useState("");
+  const [dailyFat, setDailyFat] = useState("");
+  const [dailyWater, setDailyWater] = useState("");
+  const [coachNotes, setCoachNotes] = useState("");
+  const [showToast, setShowToast] = useState(false);
+
   const { id } = useParams();
+  const planRef = useRef({});
 
   const loadData = async () => {
     setLoading(true);
@@ -46,20 +56,37 @@ function ClientDetails() {
     setLoading(false);
   };
 
-
   useEffect(() => {
     loadData();
   }, []);
 
   const handleCreate = async () => {
-    await createPlan({
+    const newPlan = await createPlan({
       name,
       plan_type: planType,
       start_date: startDate,
       client_id: Number(id),
+      daily_calories: dailyCalories,
+      daily_protein: dailyProtein,
+      daily_carbs: dailyCarbs,
+      daily_fat: dailyFat,
+      daily_water: dailyWater,
+      coach_notes: coachNotes,
     });
+    if (!newPlan.error) {
+      setShowToast(true);
+    }
 
-    loadData();
+    setTimeout(() => {
+      setShowToast(false);
+    }, 2500);
+
+    setPlans((prev) => [...prev, newPlan]);
+    setTimeout(() => {
+      planRef.current[newPlan.id]?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }, 50);
   };
 
   const handleDelete = async (id) => {
@@ -92,22 +119,22 @@ function ClientDetails() {
   return (
     <>
       <Layout>
-        <div className="max-w-[1500px] mx-auto">
-          <div className="mb-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+        <div className="mx-auto max-w-[1500px]">
+          <div className="mb-12 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="flex items-center gap-5">
-              <div className="w-20 h-20 rounded-[28px] bg-gradient-to-br from-[#9b6cff] to-[#7b4dff] flex items-center justify-center text-white text-3xl font-bold shadow-[0_20px_45px_rgba(123,77,255,0.18)] shrink-0">
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-[28px] bg-gradient-to-br from-[#9b6cff] to-[#7b4dff] text-3xl font-bold text-white shadow-[0_20px_45px_rgba(123,77,255,0.18)]">
                 {client?.first_name?.[0]}
               </div>
 
               <div>
                 <h1
-                  className="text-4xl md:text-[52px] font-bold tracking-[-0.03em] text-[#24163b]"
+                  className="text-4xl font-bold tracking-[-0.03em] text-[#24163b] md:text-[52px]"
                   style={{ fontFamily: "Plus Jakarta Sans" }}
                 >
                   {client?.first_name} {client?.last_name}
                 </h1>
 
-                <p className="text-[#8d87a1] mt-2 text-[15px]">
+                <p className="mt-2 text-[15px] text-[#8d87a1]">
                   {client?.email}
                 </p>
               </div>
@@ -115,39 +142,45 @@ function ClientDetails() {
 
             <button
               onClick={() => navigate(`/client/${id}/report`)}
-              className="w-fit rounded-full bg-white/70 backdrop-blur-xl border border-white/40 px-6 py-3 text-sm font-medium text-[#6d43d6] shadow-[0_8px_30px_rgba(123,77,255,0.08)] hover:bg-white transition-all"
+              className="w-fit rounded-full border border-white/40 bg-white/70 px-6 py-3 text-sm font-medium text-[#6d43d6] shadow-[0_8px_30px_rgba(123,77,255,0.08)] backdrop-blur-xl transition-all duration-150 hover:bg-white active:scale-95"
             >
               View Full Report
             </button>
           </div>
 
-          <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-12">
-            <div className="bg-white/60 backdrop-blur-xl border border-white/30 rounded-[28px] p-5">
-              <p className="text-[13px] uppercase tracking-[0.18em] text-[#9f97b4]">
+          <div className="mb-12 grid grid-cols-2 gap-4 xl:grid-cols-4">
+            <div className="rounded-[28px] border border-white/30 bg-white/60 p-5 backdrop-blur-xl">
+              <p className="text-[13px] tracking-[0.18em] text-[#9f97b4] uppercase">
                 Age
               </p>
 
-              <h3 className="mt-3 text-3xl font-bold text-[#24163b]">{questionnaire?.answers?.basic_info?.age}</h3>
+              <h3 className="mt-3 text-3xl font-bold text-[#24163b]">
+                {questionnaire?.answers?.basic_info?.age}
+              </h3>
             </div>
 
-            <div className="bg-white/60 backdrop-blur-xl border border-white/30 rounded-[28px] p-5">
-              <p className="text-[13px] uppercase tracking-[0.18em] text-[#9f97b4]">
+            <div className="rounded-[28px] border border-white/30 bg-white/60 p-5 backdrop-blur-xl">
+              <p className="text-[13px] tracking-[0.18em] text-[#9f97b4] uppercase">
                 Height
               </p>
 
-              <h3 className="mt-3 text-3xl font-bold text-[#24163b]">{questionnaire?.answers?.basic_info?.height}</h3>
+              <h3 className="mt-3 text-3xl font-bold text-[#24163b]">
+                {questionnaire?.answers?.basic_info?.height}
+              </h3>
             </div>
 
-            <div className="bg-white/60 backdrop-blur-xl border border-white/30 rounded-[28px] p-5">
-              <p className="text-[13px] uppercase tracking-[0.18em] text-[#9f97b4]">
+            <div className="rounded-[28px] border border-white/30 bg-white/60 p-5 backdrop-blur-xl">
+              <p className="text-[13px] tracking-[0.18em] text-[#9f97b4] uppercase">
                 Weight
               </p>
 
-              <h3 className="mt-3 text-3xl font-bold text-[#24163b]">{questionnaire?.answers?.basic_info?.current_weight}</h3>
+              <h3 className="mt-3 text-3xl font-bold text-[#24163b]">
+                {questionnaire?.answers?.basic_info?.current_weight}
+              </h3>
             </div>
 
-            <div className="bg-gradient-to-br from-[#9b6cff] to-[#7b4dff] rounded-[28px] p-5 shadow-[0_18px_40px_rgba(123,77,255,0.18)]">
-              <p className="text-[13px] uppercase tracking-[0.18em] text-white/70">
+            <div className="rounded-[28px] bg-gradient-to-br from-[#9b6cff] to-[#7b4dff] p-5 shadow-[0_18px_40px_rgba(123,77,255,0.18)]">
+              <p className="text-[13px] tracking-[0.18em] text-white/70 uppercase">
                 Active Plans
               </p>
 
@@ -158,9 +191,9 @@ function ClientDetails() {
           </div>
 
           <div className="space-y-10">
-            <div className="bg-white/65 backdrop-blur-2xl border border-white/30 rounded-[34px] p-7 shadow-[0_10px_35px_rgba(0,0,0,0.03)]">
+            <div className="rounded-[34px] border border-white/30 bg-white/65 p-7 shadow-[0_10px_35px_rgba(0,0,0,0.03)] backdrop-blur-2xl">
               <div className="mb-8">
-                <p className="text-[13px] uppercase tracking-[0.18em] text-[#9b6cff]">
+                <p className="text-[13px] tracking-[0.18em] text-[#9b6cff] uppercase">
                   Nutrition Setup
                 </p>
 
@@ -172,20 +205,20 @@ function ClientDetails() {
                 </h2>
               </div>
 
-              <div className="flex flex-col xl:flex-row xl:items-center gap-5">
+              <div className="flex flex-col gap-5 xl:flex-row xl:items-center">
                 <input
-                  className="flex-1 min-w-[260px] rounded-3xl border border-white/40 bg-white/80 px-6 py-5 outline-none text-[#24163b] placeholder:text-[#aaa2bf] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/10 transition-all"
+                  className="min-w-[260px] flex-1 rounded-3xl border border-white/40 bg-white/80 px-6 py-5 text-[#24163b] transition-all outline-none placeholder:text-[#aaa2bf] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/10"
                   placeholder="Plan name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col gap-4 sm:flex-row">
                   <label
-                    className={`min-w-[220px] flex items-center justify-between rounded-3xl border px-5 py-5 cursor-pointer transition-all ${
+                    className={`flex min-w-[220px] cursor-pointer items-center justify-between rounded-3xl border px-5 py-5 transition-all ${
                       planType === "calendar"
-                        ? "bg-[#f8f3ff] border-[#dccdff]"
-                        : "bg-white/60 border-white/40 hover:bg-white"
+                        ? "border-[#dccdff] bg-[#f8f3ff]"
+                        : "border-white/40 bg-white/60 hover:bg-white"
                     }`}
                   >
                     <div>
@@ -193,7 +226,7 @@ function ClientDetails() {
                         Calendar Plan
                       </p>
 
-                      <p className="text-sm text-[#8d87a1] mt-1">
+                      <p className="mt-1 text-sm text-[#8d87a1]">
                         Start date based
                       </p>
                     </div>
@@ -207,10 +240,10 @@ function ClientDetails() {
                   </label>
 
                   <label
-                    className={`min-w-[220px] flex items-center justify-between rounded-3xl border px-5 py-5 cursor-pointer transition-all ${
+                    className={`flex min-w-[220px] cursor-pointer items-center justify-between rounded-3xl border px-5 py-5 transition-all ${
                       planType === "template"
-                        ? "bg-[#f8f3ff] border-[#dccdff]"
-                        : "bg-white/60 border-white/40 hover:bg-white"
+                        ? "border-[#dccdff] bg-[#f8f3ff]"
+                        : "border-white/40 bg-white/60 hover:bg-white"
                     }`}
                   >
                     <div>
@@ -218,7 +251,7 @@ function ClientDetails() {
                         Template Plan
                       </p>
 
-                      <p className="text-sm text-[#8d87a1] mt-1">
+                      <p className="mt-1 text-sm text-[#8d87a1]">
                         Reusable structure
                       </p>
                     </div>
@@ -234,7 +267,7 @@ function ClientDetails() {
 
                 {planType === "calendar" && (
                   <input
-                    className="rounded-3xl border border-white/40 bg-white/80 px-6 py-5 outline-none text-[#24163b] focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/10 transition-all"
+                    className="rounded-3xl border border-white/40 bg-white/80 px-6 py-5 text-[#24163b] transition-all outline-none focus:border-[#9b6cff] focus:ring-4 focus:ring-[#9b6cff]/10"
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
@@ -248,7 +281,7 @@ function ClientDetails() {
             </div>
 
             <div>
-              <div className="flex items-center justify-between mb-7">
+              <div className="mb-7 flex items-center justify-between">
                 <div>
                   <h2
                     className="text-[34px] font-bold text-[#24163b]"
@@ -257,7 +290,7 @@ function ClientDetails() {
                     Nutrition Plans
                   </h2>
 
-                  <p className="text-[#8d87a1] mt-2">
+                  <p className="mt-2 text-[#8d87a1]">
                     Personalized plans created for this client
                   </p>
                 </div>
@@ -267,28 +300,57 @@ function ClientDetails() {
                 {plans.map((plan) => (
                   <div
                     key={plan.id}
+                    ref={(el) => (planRef.current[plan.id] = el)}
                     onClick={() => navigate(`/plans/${plan.id}`)}
-                    className="group bg-white/65 backdrop-blur-2xl border border-white/30 rounded-[28px] px-6 py-5 flex items-center justify-between gap-6 cursor-pointer hover:shadow-[0_18px_45px_rgba(0,0,0,0.04)] hover:-translate-y-[2px] transition-all duration-300"
+                    className="group grid cursor-pointer grid-cols-1 items-center gap-6 rounded-[28px] border border-white/30 bg-white/65 px-6 py-5 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[0_18px_45px_rgba(0,0,0,0.04)] lg:grid-cols-[220px_1fr_220px]"
                   >
-                    <div>
+                    <div className="shrink-0 lg:w-[220px]">
                       <p className="text-xl font-semibold text-[#24163b]">
                         {plan.name}
                       </p>
 
-                      <div className="flex items-center gap-3 mt-3">
-                        <div className="px-3 py-1 rounded-full bg-[#f5efff] text-[#8b5cf6] text-xs font-semibold uppercase tracking-[0.08em]">
+                      <div className="mt-3 flex items-center gap-3">
+                        <div className="rounded-full bg-[#f5efff] py-1 text-xs font-semibold tracking-[0.08em] text-[#8b5cf6] uppercase">
                           {plan.plan_type}
                         </div>
 
                         {plan.start_date && (
-                          <p className="text-sm text-[#8d87a1]">
-                            {plan.start_date}
-                          </p>
+                          <div className="rounded-full bg-[#f5efff] px-3 py-1 text-xs font-semibold text-[#8b5cf6]">
+                            {new Date(plan.start_date).toLocaleDateString(
+                              "en-GB",
+                            )}
+                          </div>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all">
+                    <div className="flex flex-wrap justify-center gap-3">
+                      {plan.daily_calories && (
+                        <div className="rounded-full bg-[#fff4e8] px-3 py-1.5 text-xs font-semibold text-[#ea580c]">
+                          {plan.daily_calories} kcal
+                        </div>
+                      )}
+
+                      {plan.daily_protein && (
+                        <div className="rounded-full bg-[#eefbf4] px-3 py-1.5 text-xs font-semibold text-[#16a34a]">
+                          {plan.daily_protein} g Protein
+                        </div>
+                      )}
+
+                      {plan.daily_carbs && (
+                        <div className="rounded-full bg-[#eef4ff] px-3 py-1.5 text-xs font-semibold text-[#2563eb]">
+                          {plan.daily_carbs} g Carbs
+                        </div>
+                      )}
+
+                      {plan.daily_fat && (
+                        <div className="rounded-full bg-[#fff7ed] px-3 py-1.5 text-xs font-semibold text-[#c2410c]">
+                          {plan.daily_fat} g Fat
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex justify-end gap-3 opacity-0 transition-all group-hover:opacity-100">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -298,7 +360,7 @@ function ClientDetails() {
                           setPlanType(plan.plan_type);
                           setStartDate(plan.start_date || "");
                         }}
-                        className="px-4 py-2 rounded-2xl bg-[#f5efff] text-[#8b5cf6] text-sm font-medium hover:bg-[#ede9fe] transition-all"
+                        className="rounded-2xl bg-[#f5efff] px-4 py-2 text-sm font-medium text-[#8b5cf6] transition-all duration-150 hover:bg-[#ede9fe] active:scale-95"
                       >
                         Update
                       </button>
@@ -308,7 +370,7 @@ function ClientDetails() {
                           e.stopPropagation();
                           handleDelete(plan.id);
                         }}
-                        className="px-4 py-2 rounded-2xl bg-[#fff1f2] text-[#e11d48] text-sm font-medium hover:bg-[#ffe4e6] transition-all"
+                        className="curosor-pointer rounded-2xl bg-[#fff1f2] px-4 py-2 text-sm font-medium text-[#e11d48] transition-all duration-150 hover:bg-[#ffe4e6] active:scale-95"
                       >
                         Delete
                       </button>
@@ -319,6 +381,11 @@ function ClientDetails() {
             </div>
           </div>
         </div>
+        <Toast
+          show={showToast}
+          title="Plan Created"
+          message="You can now start adding meals and nutrition details."
+        />
       </Layout>
     </>
   );

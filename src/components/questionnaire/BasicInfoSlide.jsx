@@ -2,12 +2,7 @@ import QuestionInput from "./QuestionInput";
 import QuestionRadio from "./QuestionRadio";
 import NavigationButtons from "./NavigationButtons";
 
-function BasicInfoSlide({
-  answers,
-  setAnswers,
-  onNext,
-  onBack,
-}) {
+function BasicInfoSlide({ answers, setAnswers, onNext, onBack }) {
   const basic = answers.basic_info;
 
   const updateField = (field, value) => {
@@ -21,27 +16,26 @@ function BasicInfoSlide({
   };
 
   return (
-    <div className="bg-white/70 backdrop-blur-xl border border-white/40 rounded-[32px] p-8 md:p-14">
-
-      <p className="text-sm uppercase tracking-[0.18em] text-[#9b6cff] text-center">
+    <div className="rounded-[32px] border border-white/40 bg-white/70 p-8 backdrop-blur-xl md:p-14">
+      <p className="text-center text-sm tracking-[0.18em] text-[#9b6cff] uppercase">
         Step 1 of 6
       </p>
 
       <h2
-        className="text-4xl md:text-5xl font-bold text-[#24163b] text-center mt-4"
+        className="mt-4 text-center text-4xl font-bold text-[#24163b] md:text-5xl"
         style={{ fontFamily: "Plus Jakarta Sans" }}
       >
         Tell us about yourself
       </h2>
 
-      <div className="w-16 h-1 bg-[#9b6cff] rounded-full mx-auto mt-5 mb-8" />
+      <div className="mx-auto mt-5 mb-8 h-1 w-16 rounded-full bg-[#9b6cff]" />
 
-      <p className="text-[#8d87a1] text-center mt-4 max-w-xl mx-auto">
-        These details help us create a nutrition plan tailored to your body and goals.
+      <p className="mx-auto mt-4 max-w-xl text-center text-[#8d87a1]">
+        These details help us create a nutrition plan tailored to your body and
+        goals.
       </p>
 
       <div className="mt-12 space-y-8">
-
         <QuestionInput
           label="Age"
           type="number"
@@ -71,9 +65,7 @@ function BasicInfoSlide({
           type="number"
           placeholder="Current weight"
           value={basic.current_weight}
-          onChange={(e) =>
-            updateField("current_weight", e.target.value)
-          }
+          onChange={(e) => updateField("current_weight", e.target.value)}
           suffix="kg"
         />
 
@@ -82,19 +74,12 @@ function BasicInfoSlide({
           type="number"
           placeholder="Target weight"
           value={basic.target_weight}
-          onChange={(e) =>
-            updateField("target_weight", e.target.value)
-          }
+          onChange={(e) => updateField("target_weight", e.target.value)}
           suffix="kg"
         />
-
       </div>
 
-      <NavigationButtons
-        onBack={onBack}
-        onNext={onNext}
-      />
-
+      <NavigationButtons onBack={onBack} onNext={onNext} />
     </div>
   );
 }

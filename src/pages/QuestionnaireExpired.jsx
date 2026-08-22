@@ -7,35 +7,32 @@ function QuestionnaireExpired() {
 
   return (
     <Layout mode="client">
-      <div className="max-w-3xl mx-auto">
-
-        <div className="bg-white/70 backdrop-blur-xl border border-white/40 rounded-[32px] p-10 md:p-16 text-center">
-
-          <p className="text-sm uppercase tracking-[0.18em] text-[#9b6cff]">
+      <div className="mx-auto max-w-3xl">
+        <div className="rounded-[32px] border border-white/40 bg-white/70 p-10 text-center backdrop-blur-xl md:p-16">
+          <p className="text-sm tracking-[0.18em] text-[#9b6cff] uppercase">
             Questionnaire
           </p>
 
-          <div className="w-20 h-20 mx-auto mt-8 rounded-full bg-[#fff7eb] border border-[#ffe4b8] flex items-center justify-center">
+          <div className="mx-auto mt-8 flex h-20 w-20 items-center justify-center rounded-full border border-[#ffe4b8] bg-[#fff7eb]">
             <span className="text-4xl">⏳</span>
           </div>
 
           <h1
-            className="text-4xl md:text-5xl font-bold text-[#24163b] mt-8"
+            className="mt-8 text-4xl font-bold text-[#24163b] md:text-5xl"
             style={{ fontFamily: "Plus Jakarta Sans" }}
           >
             Editing Period Expired
           </h1>
 
-          <div className="w-16 h-1 bg-[#9b6cff] rounded-full mx-auto mt-6 mb-8" />
+          <div className="mx-auto mt-6 mb-8 h-1 w-16 rounded-full bg-[#9b6cff]" />
 
-          <p className="text-lg text-[#8d87a1] leading-8 max-w-2xl mx-auto">
-            The 24-hour editing period has ended.
-            Your questionnaire has been locked and sent to your trainer for review.
+          <p className="mx-auto max-w-2xl text-lg leading-8 text-[#8d87a1]">
+            The 24-hour editing period has ended. Your questionnaire has been
+            locked and sent to your trainer for review.
           </p>
 
-          <div className="mt-10 rounded-3xl bg-[#f7f3ff] border border-[#ece8ff] p-6 text-left">
-
-            <h3 className="text-lg font-semibold text-[#24163b] mb-3">
+          <div className="mt-10 rounded-3xl border border-[#ece8ff] bg-[#f7f3ff] p-6 text-left">
+            <h3 className="mb-3 text-lg font-semibold text-[#24163b]">
               What happens next?
             </h3>
 
@@ -44,7 +41,6 @@ function QuestionnaireExpired() {
               <li>• A personalized nutrition plan will be created.</li>
               <li>• If you need changes, contact your trainer directly.</li>
             </ul>
-
           </div>
 
           <div className="mt-12 flex justify-center">
@@ -52,9 +48,7 @@ function QuestionnaireExpired() {
               Back to Dashboard
             </Button>
           </div>
-
         </div>
-
       </div>
     </Layout>
   );

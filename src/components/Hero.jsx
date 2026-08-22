@@ -7,111 +7,32 @@ function Hero() {
   const token = localStorage.getItem("token");
 
   return (
-    <section
-      className="
-        relative
+    <section className="relative flex min-h-screen items-center overflow-visible px-8 lg:px-24">
+      <div className="absolute top-0 right-0 bottom-[-120px] left-0 z-10 bg-gradient-to-r from-[#f7f4ff]/90 via-[#f7f4ff]/35 to-transparent" />
 
-        flex items-center
-
-        min-h-screen
-
-        px-8 lg:px-24
-
-        overflow-visible
-      "
-    >
-      <div
-        className="
-    absolute top-0
-    left-0
-    right-0
-    bottom-[-120px]
-
-    bg-gradient-to-r
-    from-[#f7f4ff]/90
-    via-[#f7f4ff]/35
-    to-transparent
-
-    z-10
-  "
-      />
-
-      <div
-        className="
-          relative z-20
-
-          max-w-2xl
-        "
-      >
+      <div className="relative z-20 max-w-2xl">
         <div
-          className="
-            inline-flex items-center
-
-            rounded-full
-
-            bg-white/30
-            backdrop-blur-xl
-
-            border border-white/30
-
-            px-5 py-2
-
-            text-[#5d5474]
-            text-sm
-            tracking-[0.14em]
-            uppercase
-            mt-20
-
-            mb-8
-          "
+          className="mt-20 mb-8 inline-flex items-center rounded-full border border-white/30 bg-white/30 px-5 py-2 text-sm tracking-[0.14em] text-[#5d5474] uppercase backdrop-blur-xl"
           style={{ fontFamily: "Open Sans" }}
         >
           Smart Nutrition Platform
         </div>
 
         <h1
-          className="
-            text-[64px]
-            lg:text-[88px]
-
-            leading-[0.92]
-            tracking-[-0.06em]
-
-            font-[800]
-
-            text-[#21113d]
-          "
+          className="text-[64px] leading-[0.92] font-[800] tracking-[-0.06em] text-[#21113d] lg:text-[88px]"
           style={{ fontFamily: "Plus Jakarta Sans" }}
         >
           Build nutrition
           <br />
           plans
-          <span
-            className="
-              bg-gradient-to-r
-              from-[#a945ff]
-              to-[#792bdd]
-
-              bg-clip-text
-              text-transparent
-            "
-          >
+          <span className="bg-gradient-to-r from-[#a945ff] to-[#792bdd] bg-clip-text text-transparent">
             {" "}
             faster.
           </span>
         </h1>
 
         <p
-          className="
-            mt-8
-
-            max-w-xl
-
-            text-[20px]
-            leading-[1.7]
-
-            text-[#5d5474]
-          "
+          className="mt-8 max-w-xl text-[20px] leading-[1.7] text-[#5d5474]"
           style={{ fontFamily: "Open Sans" }}
         >
           Create personalized meal plans, manage clients and simplify your
@@ -119,13 +40,13 @@ function Hero() {
         </p>
 
         {token ? (
-          <div className="flex items-center gap-5 mt-10">
+          <div className="mt-10 flex items-center gap-5">
             <Button onClick={() => navigate("/dashboard")}>
               Go to dashboard →
             </Button>
           </div>
         ) : (
-          <div className="flex items-center gap-5 mt-10">
+          <div className="mt-10 flex items-center gap-5">
             <Button onClick={() => navigate("/signup")}>Get started</Button>
 
             <Button variant="secondary" onClick={() => navigate("/login")}>

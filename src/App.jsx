@@ -17,6 +17,7 @@ import FoodList from "./pages/FoodList";
 import Questionnaire from "./pages/Questionnaire";
 import QuestionnaireSubmitted from "./pages/QuestionnaireSubmitted";
 import QuestionnaireExpired from "./pages/QuestionnaireExpired";
+import QuestionnaireReport from "./pages/QuestionnaireReport";
 
 function App() {
   return (
@@ -59,13 +60,24 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/client/:id/report"
+          element={
+            <ProtectedRoute>
+              <QuestionnaireReport />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/invite/:token" element={<AcceptInvite />} />
         <Route path="/email-form" element={<EmailForm />} />
         <Route path="/features" element={<Features />} />
         <Route path="/foods" element={<FoodList />} />
         <Route path="/questionnaire" element={<Questionnaire />} />
         <Route path="/submitted" element={<QuestionnaireSubmitted />} />
-        <Route path="/questionnaire-expired" element={<QuestionnaireExpired />} />
+        <Route
+          path="/questionnaire-expired"
+          element={<QuestionnaireExpired />}
+        />
       </Routes>
     </BrowserRouter>
   );

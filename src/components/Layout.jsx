@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Button from "./Button";
 
-
 function Layout({ children, mode = "trainer" }) {
   const navigate = useNavigate();
 
@@ -38,7 +37,7 @@ function Layout({ children, mode = "trainer" }) {
       }`}
     >
       <div
-        className={`absolute inset-0 backdrop-blur-[3px] z-0 ${
+        className={`absolute inset-0 z-0 backdrop-blur-[3px] ${
           isClient
             ? "bg-gradient-to-br from-[#7ec7a2]/55 via-[#d7f5e6]/20 to-[#ffcf8f]/20"
             : "bg-gradient-to-r from-[#f7f4ff]/90 via-[#f7f4ff]/45 to-[#f7f4ff]/20"
@@ -48,19 +47,19 @@ function Layout({ children, mode = "trainer" }) {
       <div className="relative z-20 p-4 sm:p-6">
         <div className="flex items-center justify-between pt-3">
           <div
-            className="pl-2 sm:pl-6 flex items-center shrink-0 cursor-pointer"
+            className="flex shrink-0 cursor-pointer items-center pl-2 sm:pl-6"
             onClick={() => navigate("/")}
           >
             <img
               src="/picture/MealMapLogo.png"
               alt="Logo"
-              className="cursor-pointer h-14 sm:h-16 md:h-20 w-auto object-contain"
+              className="h-14 w-auto cursor-pointer object-contain sm:h-16 md:h-20"
             />
           </div>
 
-          <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 lg:flex">
             <div
-              className={`flex items-center gap-8 xl:gap-10 rounded-full border backdrop-blur-2xl px-8 xl:px-10 py-4 shadow-[0_8px_32px_rgba(31,38,135,0.18)] ${
+              className={`flex items-center gap-8 rounded-full border px-8 py-4 shadow-[0_8px_32px_rgba(31,38,135,0.18)] backdrop-blur-2xl xl:gap-10 xl:px-10 ${
                 isClient
                   ? "border-white/30 bg-white/15"
                   : "border-white/20 bg-white/20"
@@ -84,7 +83,11 @@ function Layout({ children, mode = "trainer" }) {
 
                   <div className="h-6 w-px bg-gray-500/50" />
 
-                  <NavButton onClick={() => navigate(isClient ? "/questionnaire" : "/foods")}>
+                  <NavButton
+                    onClick={() =>
+                      navigate(isClient ? "/questionnaire" : "/foods")
+                    }
+                  >
                     {isClient ? "Questionnaire" : "Food List"}
                   </NavButton>
                 </>
@@ -103,15 +106,15 @@ function Layout({ children, mode = "trainer" }) {
           </div>
 
           {token ? (
-            <div className="hidden lg:flex justify-end pr-6">
+            <div className="hidden justify-end pr-6 lg:flex">
               <Button onClick={handleLogout}>Logout</Button>
             </div>
           ) : null}
 
-          <div className="lg:hidden relative">
+          <div className="relative lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`group relative flex h-14 w-14 items-center justify-center rounded-2xl border backdrop-blur-2xl shadow-[0_8px_32px_rgba(31,38,135,0.18)] transition-all duration-300 hover:scale-105 cursor-pointer ${
+              className={`group relative flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl border shadow-[0_8px_32px_rgba(31,38,135,0.18)] backdrop-blur-2xl transition-all duration-300 hover:scale-105 ${
                 isClient
                   ? "border-white/30 bg-white/15 hover:bg-white/20"
                   : "border-white/20 bg-white/15 hover:bg-white/20"
@@ -140,7 +143,7 @@ function Layout({ children, mode = "trainer" }) {
 
             {mobileMenuOpen && (
               <div
-                className={`absolute right-0 top-[72px] z-[999] w-72 overflow-hidden rounded-[32px] border backdrop-blur-2xl p-5 shadow-[0_20px_60px_rgba(31,38,135,0.18)] transition-all duration-300 ${
+                className={`absolute top-[72px] right-0 z-[999] w-72 overflow-hidden rounded-[32px] border p-5 shadow-[0_20px_60px_rgba(31,38,135,0.18)] backdrop-blur-2xl transition-all duration-300 ${
                   isClient
                     ? "border-white/30 bg-white/60"
                     : "border-white/30 bg-white/70"
@@ -178,7 +181,11 @@ function Layout({ children, mode = "trainer" }) {
                       <div
                         className={`rounded-2xl transition-all ${isClient ? "hover:bg-[#eef8f0]" : "hover:bg-[#f4efff]"}`}
                       >
-                        <NavButton onClick={() => navigate("/foods")}>
+                        <NavButton
+                          onClick={() =>
+                            navigate(isClient ? "/questionnaire" : "/foods")
+                          }
+                        >
                           {isClient ? "Questionnaire" : "Food List"}
                         </NavButton>
                       </div>
@@ -211,7 +218,7 @@ function Layout({ children, mode = "trainer" }) {
 
                   {token && (
                     <div
-                      className={`pt-3 mt-3 border-t ${isClient ? "border-[#dcebdd]" : "border-[#e7dcff]"}`}
+                      className={`mt-3 border-t pt-3 ${isClient ? "border-[#dcebdd]" : "border-[#e7dcff]"}`}
                     >
                       <Button onClick={handleLogout}>Logout</Button>
                     </div>
