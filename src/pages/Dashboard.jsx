@@ -102,9 +102,9 @@ function Dashboard() {
   };
 
   const sendEmail = (email, inviteLink) => {
-    const serviceId = "service_duvq7f2";
-    const templateId = "template_k73go98";
-    const publicKey = "-aHVMcujC0K2PXodk";
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     const templateParams = {
       email,
@@ -384,7 +384,7 @@ function Dashboard() {
             </button>
 
             {showInactiveClients && (
-              <div className="animate-in fade-in mt-6 grid grid-cols-1 gap-5 duration-300 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="animate-in fade-in mt-6 grid grid-cols-1 gap-5 duration-300 sm:grid-cols-2 lg:grid-cols-3 ">
                 {clients
                   .filter((client) => !client.is_active)
                   .map((client) => (
